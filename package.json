@@ -1,0 +1,37 @@
+{
+  "name": "dealer-flow-dms",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Enterprise Handset Dealer Management System (DMS)",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run start:dev --workspace=apps/backend\" \"npm run dev --workspace=apps/frontend\"",
+    "start:backend": "npm run start:dev --workspace=apps/backend",
+    "start:frontend": "npm run dev --workspace=apps/frontend",
+    "start:ai": "cd apps/ai-service && uvicorn app.main:app --reload --port 8000",
+    "migrate": "npx prisma migrate dev --name init --schema=./database/prisma/schema.prisma",
+    "seed": "npx prisma db seed --schema=./database/prisma/schema.prisma",
+    "studio": "npx prisma studio --schema=./database/prisma/schema.prisma",
+    "build": "npm run build --workspace=apps/backend && npm run build --workspace=apps/frontend",
+    "test": "npm run test --workspace=apps/backend",
+    "lint": "npm run lint --workspace=apps/backend"
+  },
+  "prisma": {
+    "seed": "npx --no-install tsx ./database/seeds/seed.ts"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22.0.0",
+    "concurrently": "^9.1.0",
+    "prisma": "^6.3.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.3.0",
+    "bcryptjs": "^3.0.3"
+  }
+}
